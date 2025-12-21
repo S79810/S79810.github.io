@@ -3,341 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Bento Grid - Food Science</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Lab Timer | Scientific Analysis Tool</title>
     <style>
-        /*
-        ------------------------------------
-        1. CSS Reset & Global Styles
-        ------------------------------------
-        */
+        /* CSS: Scientific Blue Aesthetic */
         :root {
-            --color-white: #ffffff;
-            --color-light-grey: #f4f4f5; /* Zinc 100 */
-            --color-medium-grey: #a1a1aa; /* Zinc 400 */
-            --color-dark-grey: #3f3f46; /* Zinc 700 */
-            --color-accent: #005f9c; /* Deep Ocean Blue (UMT Theme) */
-            --color-accent-light: #e0f2ff; /* Very light blue */
-            --font-family: 'Inter', sans-serif;
-            --border-radius: 12px;
-            --padding-base: 20px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            --bg-color: #e3f2fd;        /* Light Scientific Blue */
+            --primary-blue: #0277bd;   /* Deep Lab Blue */
+            --card-bg: #ffffff;
+            --accent-success: #4caf50;
+            --text-main: #263238;
+            --border-color: #b0bec5;
         }
 
         body {
-            font-family: var(--font-family);
-            background-color: var(--color-light-grey);
-            color: var(--color-dark-grey);
-            line-height: 1.6;
-            padding: var(--padding-base);
-            min-height: 100vh;
-        }
-
-        /*
-        ------------------------------------
-        2. Bento Grid Layout
-        ------------------------------------
-        */
-        .bento-grid {
-            display: grid;
-            gap: var(--padding-base);
-            max-width: 1200px;
-            margin: 0 auto;
-            /* Default: Mobile Stacked Layout (1 column) */
-            grid-template-columns: 1fr;
-        }
-
-        .bento-card {
-            background-color: var(--color-white);
-            border-radius: var(--border-radius);
-            padding: var(--padding-base);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            /* UPDATED: Add scale transform for new hover effect */
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* UPDATED: Subtle zoom hover effect (Requested in step 3) */
-        .bento-card:hover {
-            transform: translateY(-2px) scale(1.01); 
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-title {
-            font-size: 1.1em;
-            font-weight: 600;
-            color: var(--color-dark-grey);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .card-title .icon {
-            margin-right: 8px;
-            color: var(--color-accent);
-        }
-
-        /*
-        ------------------------------------
-        3. Card Specific Styles (Content & Size)
-        ------------------------------------
-        */
-        
-        /* Card 1: Profile - Large (UPDATED for background image) */
-        .card-profile {
-            grid-area: profile;
-            /* NEW: Set the background image (Requested in the last query) */
-            background-image: url('bg.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            /* Ensure text is readable on the background image */
-            color: var(--color-white); 
-        }
-
-        .card-profile h1 {
-            font-size: 2em;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--color-white); /* Text color set to white */
-        }
-
-        .card-profile p {
-            color: var(--color-light-grey); /* Lighter grey for secondary text */
-            font-size: 1em;
-            margin-bottom: 15px;
-        }
-        
-        .card-profile .tagline {
-            font-style: italic;
-            font-size: 1.1em;
-            color: var(--color-white);
-            margin-bottom: 15px;
-            border-left: 3px solid var(--color-white); /* Use white border for contrast */
-            padding-left: 10px;
-        }
-
-        .card-profile .card-title {
-            color: var(--color-white);
-        }
-
-        .card-profile .card-title .icon {
-            margin-right: 8px;
-            color: var(--color-accent-light); /* Use a light accent for icon */
-        }
-        
-        /* Social links also need to be white */
-        .card-profile .social-links a {
-            color: var(--color-white);
-        }
-
-        /* Card 2: Location - Small */
-        .card-location {
-            grid-area: location;
-        }
-        
-        .card-location .time-display {
-            font-size: 2.5em;
-            font-weight: 700;
-            color: var(--color-dark-grey);
-        }
-        
-        /* Card 3: Tech Stack / Subjects - Medium */
-        .card-subjects {
-            grid-area: subjects;
-        }
-        
-        .subject-list {
-            list-style: none;
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        
-        .subject-list li {
-            background-color: var(--color-accent-light);
-            color: var(--color-accent);
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 0.9em;
-            font-weight: 500;
-        }
-
-        /* Card 4: Case Study - Medium */
-        .card-case-study {
-            grid-area: case-study;
-            border-left: 5px solid var(--color-accent);
-        }
-
-        .card-case-study .experiment-title {
-            font-size: 1.5em;
-            font-weight: 600;
-            margin-top: 5px;
-        }
-
-        /* Card 5: Hobby - Small */
-        .card-hobby {
-            grid-area: hobby;
-        }
-        
-        .card-hobby .activity-text {
-            font-style: italic;
-            color: var(--color-dark-grey);
-            font-weight: 500;
-            font-size: 1.1em;
-        }
-        
-        /* Card 6: Reflection - New Small Card (Requested in step 2) */
-        .card-reflection {
-             grid-area: reflection;
-             background-color: var(--color-accent-light);
-             border: 1px solid var(--color-accent);
-        }
-
-        /* Card 7: Playlist - Wide */
-        .card-playlist {
-            grid-area: playlist;
-        }
-
-        .music-player-placeholder {
-            background-color: var(--color-dark-grey);
-            color: var(--color-white);
-            height: 80px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-weight: 500;
-            margin-top: 10px;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
         }
-        
-        /*
-        ------------------------------------
-        4. Desktop Responsiveness (Grid Layout)
-        ------------------------------------
-        */
-        @media (min-width: 768px) {
-            .bento-grid {
-                /* UPDATED: Grid changed from 3 to 4 columns to fit the new Reflection card */
-                grid-template-columns: 1fr 1fr 1fr 1.5fr; 
-                grid-template-rows: auto auto auto auto;
-                /* UPDATED: Added 'reflection' to the first row */
-                grid-template-areas:
-                    "location hobby reflection profile" /* Row 1: Small | Small | New Small | Large */
-                    "subjects subjects subjects profile"  /* Row 2: Subjects spans 3 columns */
-                    "case-study case-study case-study case-study" /* Row 3: Wide Case Study (spans 4) */
-                    "playlist playlist playlist playlist"; /* Row 4: Wide Playlist (spans 4) */
-            }
-            
-            /* Final Area mapping */
-            .card-profile { grid-area: profile; }
-            .card-location { grid-area: location; }
-            .card-subjects { grid-area: subjects; }
-            .card-case-study { grid-area: case-study; }
-            .card-hobby { grid-area: hobby; }
-            .card-reflection { grid-area: reflection; } /* New Grid Area */
-            .card-playlist { grid-area: playlist; }
-            
-            /* Spanning adjustments for the new 4-column layout */
-            .card-subjects { grid-column: span 3; }
-            .card-case-study { grid-column: span 4; }
-            .card-playlist { grid-column: span 4; }
+
+        .lab-container {
+            text-align: center;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 350px;
         }
-        
-        /* Mobile-specific fix for the new card */
-        @media (max-width: 767px) {
-            .card-reflection {
-                /* On mobile, insert the reflection card before the profile card for better flow */
-                order: 3;
-            }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-blue);
+        }
+
+        #status-icon {
+            font-size: 90px;
+            margin: 20px 0;
+            display: block;
+        }
+
+        #timer-display {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 56px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: var(--text-main);
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px inset #ddd;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: 1px solid var(--primary-blue);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            background-color: white;
+            color: var(--primary-blue);
+        }
+
+        button:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        #start-btn { 
+            background-color: var(--primary-blue); 
+            color: white;
+        }
+
+        /* Pulse animation for active analysis */
+        .analyzing {
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
-<body>
+<<a href="https://s79810.github.io" style="position:absolute; top:20px; left:20px;">← Back to Portfolio</a>>
 
-<div class="bento-grid">
-
-    <div class="bento-card card-location">
-        <div>
-            <div class="card-title"><span class="icon">&#x1f343;</span> Current Location</div>
-            <p>UMT, Kuala Nerus, Terengganu</p>
-        </div>
-        <div class="time-display">2:32 PM</div> </div>
-    
-    <div class="bento-card card-hobby">
-        <div>
-            <div class="card-title"><span class="icon">&#x1f3d4;</span> Campus Activity</div>
-            <p class="activity-text">Evening walks at Pantai UMT</p>
-        </div>
-        <p style="color: var(--color-medium-grey);">Relaxation and reflection.</p>
-    </div>
-    
-    <div class="bento-card card-reflection">
-        <div>
-            <div class="card-title"><span class="icon">&#x1f4a1;</span> Why Food Tech Matters in Malaysia</div>
-            <p>
-                Sustainable food security is crucial for our future. By optimizing local processing methods, we can reduce waste and improve nutrition.
-            </p>
-        </div>
-    </div>
-    <div class="bento-card card-profile">
-        <div>
-            <h1>Nur Nadia Farhana binti Md Ayob</h1>
-            <p>
-                **BSc Food Science Food Technology** | Year 1
-            </p>
-            <div class="tagline">
-                'Innovating food safety.'
-            </div>
-        </div>
-        <div>
-            <div class="card-title"><span class="icon">&#x1f4ca;</span> Social & Portal</div>
-            <div class="social-links">
-                <a href="#" target="_blank">LinkedIn</a>
-                <a href="#" target="_blank">GitHub</a>
-                <a href="#" target="_blank" style="color: var(--color-accent-light);">UMT Portal</a>
-            </div>
+    <div class="lab-container">
+        <h2>Process Timer</h2>
+        <div id="status-icon">🧪</div>
+        <div id="timer-display">15:00</div>
+        
+        <div class="controls">
+            <button id="start-btn" onclick="startAnalysis()">Start</button>
+            <button id="pause-btn" onclick="pauseAnalysis()">Pause</button>
+            <button id="reset-btn" onclick="resetLab()">Reset</button>
         </div>
     </div>
 
-    <div class="bento-card card-subjects">
-        <div>
-            <div class="card-title"><span class="icon">&#x1f4da;</span> Core Competencies</div>
-            <p>Key subjects and technical skills acquired.</p>
-        </div>
-        <ul class="subject-list">
-            <li>Food Chemistry</li>
-            <li>Microbiology</li>
-            <li>Excel</li>
-            <li>Lab Analysis</li>
-        </ul>
-    </div>
+    <audio id="finish-sound" src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"></audio>
 
-    <div class="bento-card card-case-study">
-        <div>
-            <div class="card-title">&#x1f9ea; Current Research Focus</div>
-            <h2 class="experiment-title">Starch Gelatinization in Local Kuih</h2>
-            <p style="margin-top: 10px;">
-                Analyzing texture profiles of various local delicacies, specifically **Kuih Lapis**, to understand ingredient ratios and processing effects on quality.
-            </p>
-        </div>
-    </div>
-    
-    <div class="bento-card card-playlist">
-        <div class="card-title">&#x1f3b5; Focus Playlist</div>
-        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6mQLN3zRtAp6ovjusyYKrV?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-    </div>
+    <script>
+        // Lab Timer Logic
+        let defaultTime = 15 * 60; // 15 Minutes
+        let timeLeft = defaultTime;
+        let timerInterval = null;
+        let isRunning = false;
 
-</div>
+        const statusIcon = document.getElementById('status-icon');
+        const timerDisplay = document.getElementById('timer-display');
+        const finishSound = document.getElementById('finish-sound');
 
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startAnalysis() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            statusIcon.textContent = '🔬'; // Analyzing state
+            statusIcon.classList.add('analyzing');
+            
+            timerInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateDisplay();
+                } else {
+                    completeAnalysis();
+                }
+            }, 1000);
+        }
+
+        function pauseAnalysis() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            statusIcon.classList.remove('analyzing');
+        }
+
+        function resetLab() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            timeLeft = defaultTime;
+            updateDisplay();
+            statusIcon.textContent = '🧪'; // Default state
+            statusIcon.classList.remove('analyzing');
+        }
+
+        function completeAnalysis() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            statusIcon.textContent = '✅'; // Finished state
+            statusIcon.classList.remove('analyzing');
+            finishSound.play();
+        }
+
+        // Initialize
+        updateDisplay();
+    </script>
 </body>
 </html>
